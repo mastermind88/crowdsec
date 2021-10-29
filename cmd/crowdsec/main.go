@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
 	"sort"
 
 	_ "net/http/pprof"
@@ -166,7 +167,7 @@ var dumpStates bool
 
 func (f *Flags) Parse() {
 
-	flag.StringVar(&f.ConfigFile, "c", "/etc/crowdsec/config.yaml", "configuration file")
+	flag.StringVar(&f.ConfigFile, "c", filepath.Join(csconfig.DefaultConfigDir, "/config.yaml"), "configuration file")
 	flag.BoolVar(&f.TraceLevel, "trace", false, "VERY verbose")
 	flag.BoolVar(&f.DebugLevel, "debug", false, "print debug-level on stdout")
 	flag.BoolVar(&f.InfoLevel, "info", false, "print info-level on stdout")

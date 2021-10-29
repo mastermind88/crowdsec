@@ -4,11 +4,14 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 )
+
+var DefaultConfigDir = "/etc/crowdsec"
 
 /*top-level config : defaults,overriden by cfg file,overriden by cli*/
 type Config struct {
@@ -71,14 +74,14 @@ func NewDefaultConfig() *Config {
 		Level:   "full",
 	}
 	configPaths := ConfigurationPaths{
-		ConfigDir:          "/etc/crowdsec/",
+		ConfigDir:          DefaultConfigDir,
 		DataDir:            "/var/lib/crowdsec/data/",
-		SimulationFilePath: "/etc/crowdsec/config/simulation.yaml",
-		HubDir:             "/etc/crowdsec/hub",
-		HubIndexFile:       "/etc/crowdsec/hub/.index.json",
+		SimulationFilePath: filepath.Join(DefaultConfigDir, "simulation.yaml"),
+		HubDir:             filepath.Join(DefaultConfigDir, "hub"),
+		HubIndexFile:       filepath.join(DefaultConfigDir, "hub", ".index.json"),
 	}
 	crowdsecCfg := CrowdsecServiceCfg{
-		AcquisitionFilePath: "/etc/crowdsec/config/acquis.yaml",
+		AcquisitionFilePath: filepath.join(DefaultConfigDir, "acquis.yaml"),
 		ParserRoutinesCount: 1,
 	}
 
@@ -88,7 +91,7 @@ func NewDefaultConfig() *Config {
 
 	apiCfg := APICfg{
 		Client: &LocalApiClientCfg{
-			CredentialsFilePath: "/etc/crowdsec/config/lapi-secrets.yaml",
+			CredentialsFilePath: filepath.Join(DefaultConfigDir, "lapi-secrets.yaml"),
 		},
 		Server: &LocalApiServerCfg{
 			ListenURI:              "127.0.0.1:8080",
