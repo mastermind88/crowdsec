@@ -78,10 +78,10 @@ func NewDefaultConfig() *Config {
 		DataDir:            "/var/lib/crowdsec/data/",
 		SimulationFilePath: filepath.Join(DefaultConfigDir, "simulation.yaml"),
 		HubDir:             filepath.Join(DefaultConfigDir, "hub"),
-		HubIndexFile:       filepath.join(DefaultConfigDir, "hub", ".index.json"),
+		HubIndexFile:       filepath.Join(DefaultConfigDir, "hub", ".index.json"),
 	}
 	crowdsecCfg := CrowdsecServiceCfg{
-		AcquisitionFilePath: filepath.join(DefaultConfigDir, "acquis.yaml"),
+		AcquisitionFilePath: filepath.Join(DefaultConfigDir, "acquis.yaml"),
 		ParserRoutinesCount: 1,
 	}
 
